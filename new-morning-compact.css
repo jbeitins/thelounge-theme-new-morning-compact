@@ -84,7 +84,7 @@ html, body {
 /* Adjust paddings to be more uniform */
 
 #chat .messages {
-	padding: 10px 15px 10px;
+	padding: 10px 15px;
 }
 
 #chat .show-more {
@@ -93,7 +93,7 @@ html, body {
 
 #chat .date-marker,
 #chat .unread-marker {
-	margin: 2px 0 0;
+	margin: 2px 0;
 }
 
 /* Compact style */
@@ -107,7 +107,7 @@ html, body {
 
 #chat .content {
 	border: none !important;
-	padding: 0 !important;
+	padding: 0;
 }
 
 #chat .time {
@@ -173,9 +173,15 @@ html, body {
 	font-weight: bolder;
 }
 
-#chat .msg[data-type=action] .content {
+#chat .msg[data-type=action] .content,
+#chat .msg[data-type=action] .from,
+#chat .msg[data-type=action] .user {
     color: inherit;
 	font-style: italic;
+}
+
+#chat .msg[data-type=action] .user {
+	font-weight: bold;
 }
 
 #chat .toggle-content img {
