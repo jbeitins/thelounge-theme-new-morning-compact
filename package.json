@@ -1,0 +1,25 @@
+{
+  "name": "thelounge-theme-new-morning-compact",
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "MIT",
+  "keywords": [
+    "thelounge",
+    "thelounge-theme"
+  ],
+  "thelounge": {
+    "css": "new-morning-compact.css",
+    "name": "New Morning (Compact)",
+    "type": "theme"
+  },
+  "description": "Compact version of New Morning theme.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbeitins/thelounge-theme-new-morning-compact.git"
+  },
+  "author": "jbeitins",
+  "bugs": {
+    "url": "https://github.com/jbeitins/thelounge-theme-new-morning-compact/issues"
+  },
+  "homepage": "https://github.com/jbeitins/thelounge-theme-new-morning-compact#readme"
+}
