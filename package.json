@@ -10,7 +10,8 @@
   "thelounge": {
     "css": "new-morning-compact.css",
     "name": "New Morning (Compact)",
-    "type": "theme"
+    "type": "theme",
+    "themeColor": "#303e4a"
   },
   "description": "Compact version of New Morning theme.",
   "repository": {
