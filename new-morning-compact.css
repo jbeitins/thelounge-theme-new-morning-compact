@@ -39,13 +39,10 @@
 html, body {
 	position: fixed;
 	width: 100%;
+	font-family: monospace;
 }
 
 /* General layout */
-
-#chat-container {
-	font-family: monospace;
-}
 
 #chat .chat {
 	padding: 10px 15px;
