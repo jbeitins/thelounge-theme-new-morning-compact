@@ -8,44 +8,22 @@ Compact version of *[New Morning theme](https://www.npmjs.com/package/thelounge-
 ![thelounge-theme-new-morning-compact-2.png](thelounge-theme-new-morning-compact-2.png)
 
 ## Features
-- Compact, mobile like layout by default. Flex layout can be renabled via CSS snippet.
+- Updated to The Lounge 4.3.0-Pre.6 with styled message search bar.
+- Compact, mobile like layout by default. Flex layout can be renabled via MOTD toggle.
 - Monospace font.
 - Hidden logos.
 - Sidebar made slightly larger by default and can be resized by dragging it in bottom right corner (left of chat input box).
 - Restyled channel join inputs and button.
 - Restyled standard and condensed status messages.
 - Restyled message highlights.
+- Adjusted density for touchscreen devices.
 - Bunch of other tweaks and fixes.
 
 ## Re-enabling Flex Layout
-To enable stock-like flex layout, add following css to custom CSS field in settings.
-
-```
-@media (min-width: 479px) {
-	#chat .msg {
-		display: flex;
-   		align-items: baseline;
-	}
-
-	#chat-container #chat .msg .from {
-		width: 120px;
-		padding-right: 10px;
-		-webkit-mask-image: linear-gradient(270deg,transparent,#000 10px);
-		mask-image: linear-gradient(270deg,transparent,#000 10px);
-	}
-
-	#chat-container #chat .msg[data-type="condensed"] .condensed-summary .time {
-		display: inherit;
-	}
-
-	#chat-container #chat .msg:not([data-from][data-type=message]):not([data-from][data-type=notice]) .from {
-		font-size: inherit;
-	}
-}
-```
+Stock-like flex layout can be enabled in settings via MOTD toggle which now helpfully reads *Show MOTD and enable classic view*.
 
 ## Requirements
-Tested on The Lounge 4.2.0.
+Tested on The Lounge 4.3.0-Pre.6.
 
 ## Install
 `thelounge install thelounge-theme-new-morning-compact`

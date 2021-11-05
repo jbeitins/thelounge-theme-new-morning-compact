@@ -17,32 +17,23 @@
 	--window-border-color: #28333d;
 }
 
-/* Light theme WIP 
-
-:root {
-    --body-color: #222;
-    --body-color-muted: #767676;
-    --link-color: #50a656;
-    --window-bg-color: #fff;
-    --window-heading-color: #454e4e;
-    --date-marker-color: rgba(0,107,59,0.5);
-    --unread-marker-color: rgba(231,76,60,0.5);
-    --highlight-bg-color: #efe8dc;
-    --highlight-border-color: #b08c4f;
-    --window-border-color: #cdd3da;
-}
-
-*/
-
 /* Fix height on mobile due to auto-hide address bar */
 
 html, body {
 	position: fixed;
 	width: 100%;
-	font-family: monospace;
+	font-family: consolas, monospace;
 }
 
 /* General layout */
+
+#viewport {
+	padding: 0 !important;
+}
+
+.window {
+	border-radius: 0;
+}
 
 #chat .chat {
 	padding: 10px 15px;
@@ -55,33 +46,31 @@ html, body {
 #chat .show-more,
 #chat .date-marker,
 #chat .unread-marker {
-	margin: 0;
-	padding: 5px 0;
+	margin: 5px 0;
+	padding: 0;
 }
 
 #chat-container #chat .msg,
 #chat-container #chat .msg .from,
 #chat-container #chat .msg .time,
 #chat-container #chat .msg .content {
-	padding-left: 0;
+	padding: 0;
 	border: none;
 	background: none;
 }
 
 #chat .msg {
 	display: block;
-	padding: 2px 0;
+	margin: 3px 0;
 }
 
 #chat-container #chat .msg .content {
-	padding: 0;
 	color: inherit;
 }
 
 #chat-container #chat .msg .time {
 	font-size: 12px;
 	color: var(--body-color-muted);
-	padding: 0;
 	font-weight: normal;
 }
 
@@ -93,7 +82,6 @@ html, body {
 
 #chat-container #chat .msg .from {
 	width: auto;
-	padding: 0;
 	-webkit-mask-image: none;
 	mask-image: none;
 	color: inherit;
@@ -107,7 +95,8 @@ html, body {
 
 /* Condensed split/join message tweaks */
 
-#chat-container #chat .msg[data-type="condensed"],
+#chat-container #chat .msg[data-type="error"],
+#chat-container #chat .msg[data-type="condensed"] .condensed-summary,
 #chat-container #chat .msg[data-type="chghost"],
 #chat-container #chat .msg[data-type="away"],
 #chat-container #chat .msg[data-type="back"],
@@ -122,11 +111,11 @@ html, body {
 #chat-container #chat .msg[data-type="topic_set_by"] {
 	color: var(--body-color-muted);
 	font-size: 12px;
+	margin: 3px 0;
 }
 
-#chat-container #chat .msg[data-type="condensed"] .condensed-summary .content {
-	font-size: 10px;
-	padding: 2px 0;
+#chat-container #chat .msg[data-type="condensed"] {
+	display: block;
 }
 
 #chat-container #chat .msg[data-type="condensed"] .condensed-summary .time {
@@ -149,7 +138,7 @@ html, body {
 }
 
 #chat-container #chat .msg .new-topic {
-	font-weight: bold;
+	font-weight: 600;
 	font-size: 14px;
 	color: var(--body-color);
 }
@@ -162,8 +151,19 @@ html, body {
 	display: inline;
 }
 
-#chat .msg .whois {
-	padding: 2px 0;
+.mentions-popup .emoji,
+.chat-content .emoji {
+	font-size: 1em;
+	vertical-align: baseline;
+	font-style: normal;
+}
+
+.irc-monospace, code {
+    font-size: inherit;
+}
+
+#chat .msg[data-type=notice] .content .tooltipped:after {
+	content: "Notice";
 }
 
 /* Mention panel */
@@ -180,9 +180,7 @@ html, body {
 .mentions-popup .msg .content {
 	background: none;
 	border: none;
-	font-weight: bold;
 	padding: 0;
-	border-radius: 0;
 }
 
 .mentions-popup .hide-all-mentions {
@@ -193,7 +191,8 @@ html, body {
 
 /* Highlights */
 
-#chat-container #chat .chat-view:not([data-type=query]) .msg.highlight {
+#chat-container #chat .msg[data-type=invite].highlight,
+#chat-container #chat .chat-view[data-type=channel] .msg.highlight {
 	border-left: 7px solid var(--highlight-border-color);
 	padding-left: 8px;
 	margin-left: -15px;
@@ -233,12 +232,6 @@ td, th {
 	border: none;
 }
 
-.window .input,
-.window .input:focus,
-.window .input:hover {
-	border: 1px solid var(--window-border-color) !important;
-}
-
 ::-webkit-search-cancel-button {
 	-webkit-appearance: none;
 }
@@ -257,6 +250,10 @@ td, th {
 
 #connect .input[name="commands"] {
 	min-height: 77px;
+}
+
+.extra-help {
+    font-size: 0.7em !important;
 }
 
 /* Sidebar */
@@ -294,14 +291,25 @@ td, th {
 	display: none;
 }
 
+#footer .icon {
+	border-radius: 5px;
+	margin: 5px;
+	height: 40px;
+	width: 40px;
+}
+
+#footer {
+	margin-bottom: 5px;
+}
+
 /* Sidebar icons */
 
 .channel-list-item[data-type=special]:before {
-    content: "\f550";
+	content: "\f550";
 }
 
 .channel-list-item {
-    align-items: center;
+	align-items: center;
 }
 
 /* Login and loading screens */
@@ -344,15 +352,34 @@ td, th {
 }
 
 .header .topic {
-	white-space: nowrap;
+	white-space: pre;
 }
 
-#chat button.mentions,
-#chat button.menu,
+.header .title {
+	font-weight: 700;
+}
+
+#chat-container #chat button.mentions,
+#chat-container #chat button.menu,
 #viewport .lt,
-#viewport .rt {
+#viewport .rt,
+#chat-container #chat button.search,
+#chat-container #chat button.close {
 	margin-top: 0;
 	color: var(--window-heading-color);
+}
+
+#chat-container .message-search input {
+    background: var(--window-border-color);
+	margin: 0;
+	padding: 0 15px;
+	border-radius: 0;
+}
+
+#chat-container .message-search.opened .input-wrapper {
+	top: 45px;
+	height: 45px;
+	z-index: 2;
 }
 
 /* User list */
@@ -377,7 +404,7 @@ td, th {
 /* Nicknames */
 #chat-container #chat .user {
 	color: #b4ddff;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 #chat-container #chat.colored-nicks .user.color-1,
@@ -463,6 +490,16 @@ code,
 	color: var(--body-color);
 }
 
+/* Disable nick detection. Way too many false detections in big chat rooms */
+
+#chat-container #chat .msg[data-type=message] .content .user,
+#chat-container #chat .msg[data-type=notice] .content .user,
+#chat-container #chat .msg[data-type=action] .content .user:nth-of-type(1n+2) {
+	color: inherit;
+	pointer-events: none;
+	font-weight: inherit;
+}
+
 /* Message form */
 
 #form {
@@ -509,6 +546,10 @@ kbd {
 	color: #99a2b4;
 }
 
+#chat .toggle-content.toggle-type-audio audio::-webkit-media-controls-enclosure {
+	border-radius: 0;
+}
+
 #image-viewer .open-btn:before {
 	right: 17px;
 	bottom: 17px;
@@ -546,20 +587,23 @@ kbd {
 
 	#chat .userlist {
 		transform: translateX(200px);
+		z-index: 1;
 	}
 
 	#footer {
-		height: 50px;
+		margin-bottom: 5px;
 	}
+}
 
-	#footer .icon {
-		border-radius: 5px;
+@media (max-width: 479px) {
+	#connect label {
+		width: auto;
 	}
+}
 
-	#footer button {
-		width: 50px;
-	}
+/* Decrease density for touch screens */
 
+@media (pointer: coarse) {
 	.channel-list-item {
 		padding: 10px 14px;
 	}
@@ -569,7 +613,11 @@ kbd {
 	}
 
 	#form {
-		min-height: 55px;
+		min-height: 50px;
+	}
+
+	#sidebar .jump-to-input:before {
+		line-height: 40px!important;
 	}
 
 	#sidebar .input {
@@ -577,8 +625,19 @@ kbd {
 		line-height: 40px;
 	}
 
-	.jump-to-input:before {
-		line-height: 40px!important;
+	#chat-container .message-search.opened .input-wrapper {
+		top: 55px;
+	}
+
+	.scroll-down-arrow {
+		width: 45px;
+		height: 45px;
+		line-height: 43px;
+	}
+
+	.scroll-down-arrow {
+		background: var(--window-bg-color) !important; /* Otherwise button gets stuck in active state on */
+		color: var(--button-color) !important;
 	}
 }
 
@@ -611,27 +670,35 @@ kbd {
 
 /* End form elements */
 
-/* Uncomment or add to custom CSS field in settings for stock-ish flex layout 
+/* Hijack MOTD toggle in settings to enable/disable flex layout */
 
-@media (min-width: 479px) {
-	#chat .msg {
+#settings abbr[title="Message Of The Day"] {
+	pointer-events: none;
+	text-decoration: none;
+}
+
+#settings abbr[title="Message Of The Day"]::after {
+	content: " and enable classic view";
+}
+
+@media (min-width: 768px) {
+	#chat:not(.hide-motd) .msg {
 		display: flex;
 		align-items: baseline;
 	}
 
-	#chat-container #chat .msg .from {
-		width: 120px;
+	#chat-container #chat:not(.hide-motd) .msg .from {
+		width: 130px;
 		padding-right: 10px;
 		-webkit-mask-image: linear-gradient(270deg,transparent,#000 10px);
 		mask-image: linear-gradient(270deg,transparent,#000 10px);
 	}
 
-	#chat-container #chat .msg[data-type="condensed"] .condensed-summary .time {
+	#chat-container #chat:not(.hide-motd) .msg[data-type="condensed"] .condensed-summary .time {
 		display: inherit;
 	}
 
-	#chat-container #chat .msg:not([data-from][data-type=message]):not([data-from][data-type=notice]) .from {
+	#chat-container #chat:not(.hide-motd) .msg:not([data-from][data-type=message]):not([data-from][data-type=notice]) .from {
 		font-size: inherit;
 	}
 }
-*/
