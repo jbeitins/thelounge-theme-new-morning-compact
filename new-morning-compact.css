@@ -706,12 +706,14 @@ kbd {
 
 /* Hijack MOTD toggle in settings to enable/disable flex layout */
 
-#settings div[settings-form] div:first-of-type .opt {
+#settings abbr[title="Message Of The Day"] {
+	pointer-events: none;
+	text-decoration: none;
 	font-size: 0;
 }
-	
-#settings div[settings-form] div:first-of-type .opt::after {
-	content: " Enable condensed layout";
+
+#settings abbr[title="Message Of The Day"]::after {
+	content: "condensed layout";
 	font-size: 14px;
 }
 
