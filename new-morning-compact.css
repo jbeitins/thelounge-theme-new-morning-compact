@@ -345,6 +345,10 @@ textarea#user-specified-css-input {
 	align-items: center;
 }
 
+#chat table.channel-list .topic {
+	white-space: unset;
+}
+
 /* Login and loading screens */
 
 #loading-reload-container,
@@ -713,7 +717,7 @@ kbd {
 }
 
 #settings abbr[title="Message Of The Day"]::after {
-	content: "condensed layout";
+	content: "messages in flex layout";
 	font-size: 14px;
 }
 
